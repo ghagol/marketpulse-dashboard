@@ -270,7 +270,7 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-sans);fo
 //  ⚠️  CONFIGURAÇÃO — coloca a tua API key aqui
 //  Para produção, usa uma variável de ambiente ou proxy backend
 // ═══════════════════════════════════════════════════════════
-const ANTHROPIC_API_KEY = 'SUA_API_KEY_AQUI';
+
 
 let newsData = {};
 let activeTab = 'macro';
@@ -285,9 +285,9 @@ function addStatus(id,type){const el=document.getElementById('api-status');const
 async function callAnthropicMCP(userMsg, mcpServers){
   const body={model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:userMsg}]};
   if(mcpServers) body.mcp_servers=mcpServers;
-  const r=await fetch('https://api.anthropic.com/v1/messages',{
+  const r=await fetch('/api/proxy',{
     method:'POST',
-    headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_API_KEY,'anthropic-version':'2023-06-01'},
+    headers:{'Content-Type':'application/json'},
     body:JSON.stringify(body)
   });
   const d=await r.json();
